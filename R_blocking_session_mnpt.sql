@@ -6,9 +6,9 @@ spool /tmp/main.sql
 set linesize 5000
 DECLARE
 
- c_sid  NUMBER := $sid;
- c_blocking NUMBER := $blocking_session;
- c_sql_id varchar2(100) := '$sql_id';
+ c_sid  NUMBER := &1;
+ c_blocking NUMBER := &2;
+ c_sql_id varchar2(100) := &3;
  v_sql_spool VARCHAR2(100);
  v_awr_spool varchar2(200);
  v_xplan_spool varchar2(200); 
