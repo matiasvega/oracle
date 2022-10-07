@@ -1,8 +1,7 @@
+!mkdir -p /tmp/blocking
 SET FEEDBACK OFF
 set serveroutput ON FORMAT WORD_WRAPPED
 spool /tmp/main.sql 
-
-!mkdir -p /tmp/blocking
 
 --- change the path to create main file.
 set linesize 5000
