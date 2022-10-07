@@ -206,3 +206,4 @@ spool off
 
 select sysdate from dual;
 @/tmp/main.sql
+exit;
