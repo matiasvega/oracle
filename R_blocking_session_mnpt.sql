@@ -1,7 +1,7 @@
-!mkdir -p /tmp/blocking
 SET FEEDBACK OFF
 set serveroutput ON FORMAT WORD_WRAPPED
-spool /tmp/main.sql 
+
+spool &4/main.sql 
 
 --- change the path to create main file.
 set linesize 5000
@@ -59,7 +59,7 @@ dbms_output.put_line('-- blocking_session_details.csv report pull ');
  ||','
  ||chr(39)
  ||chr(10)
- ||'spool /tmp/blocking/blocking_session_details.csv'
+ ||'spool &4/blocking/blocking_session_details.csv'
  ||chr(10)
  ||' with tsp as (
 select  min (sample_time) as start_sample, max (sample_time) as end_sample ,   SUBSTR (MAX (sample_time) - MIN (sample_time),
@@ -88,7 +88,7 @@ dbms_output.put_line('set verify off trimspool on long 1000000 longchunksize 100
  ||chr(10)
  ||'COLUMN sql_text WORD_WRAPPED'
  ||chr(10)
- ||'spool /tmp/blocking/blocking_sqls_details.csv'
+ ||'spool &4/blocking/blocking_sqls_details.csv'
  ||chr(10)
  ||' with tsp as (
 select  min (sample_time) as start_sample, max (sample_time) as end_sample ,   SUBSTR (MAX (sample_time) - MIN (sample_time),
@@ -134,7 +134,7 @@ dbms_output.put_line('-- AWR Report Generation for the 30 min blocking period ')
  
  dbms_output.put_line('set heading off feedback off lines 800 pages 5000 trimspool on trimout on '
  ||chr(10)
- ||'spool /tmp/blocking/'||v_awr_spool
+ ||'spool &4/blocking/'||v_awr_spool
  ||chr(10)
  ||' select output from table(dbms_workload_repository.awr_report_html('
  ||c_awrrepo.dbid||','||c_awrrepo.instance_number||','||c_awrrepo.start_snap_id||','||c_awrrepo.end_snap_id||',0));'
@@ -167,7 +167,7 @@ open c_sqlid(c_sid,c_blocking,c_sql_id);
  ||','
  ||chr(39)
  ||chr(10)
- ||'spool /tmp/blocking/'||v_sql_spool
+ ||'spool &4/blocking/'||v_sql_spool
  ||chr(10)
  ||' SELECT * FROM v$sql_bind_capture WHERE sql_id='
  ||chr(39) 
@@ -182,7 +182,7 @@ open c_sqlid(c_sid,c_blocking,c_sql_id);
 
 dbms_output.put_line('set heading off feedback off lines 800 pages 5000 trimspool on trimout on '
  ||chr(10)
- ||'spool /tmp/blocking/'||v_xplan_spool
+ ||'spool &4/blocking/'||v_xplan_spool
  ||chr(10)
  ||'select * from table(dbms_xplan.display_awr ('
  ||chr(39)
@@ -204,5 +204,5 @@ END;
 spool off
 
 select sysdate from dual;
-@/tmp/main.sql
+@&4/main.sql
 exit;
