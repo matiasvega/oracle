@@ -14,7 +14,7 @@ DECLARE
  v_awr_spool varchar2(200);
  v_xplan_spool varchar2(200); 
 
- v_tmp_path :='&4';
+ v_tmp_path varchar2(100) :='&4';
 
 CURSOR c_snapid(l_sid number, l_blocking number, l_sqlid varchar2) IS
 select dbid,instance_number,min(snap_id) as start_snap_id,min(snap_id)+2 as end_snap_id,session_id,blocking_session,sql_id
